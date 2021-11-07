@@ -1,0 +1,69 @@
+<!doctype html>
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Password Generator</title>
+<style>
+#presetButtons button {
+  padding: 5px;  
+}
+</style>
+</head>
+
+<body>
+<div style="width: 700px; margin: 0 auto; margin-top: calc(1vh / 0.1);">
+<center>
+<h1 style="font-family: Arial;">Password Generator</h1><hr><br>
+<input autocomplete="off" id="password" style="font-size: 25px; width: 500px;"> <button style="font-size: 25px;" onclick="copy()">new and copy</button> 
+
+<br><br>
+
+digits: <input type="number" value="25" style="text-align: center; width: 50px;" autocomplete="off" id="digits">
+<br><br><br><br>
+characters to include: <input id="possible" value="ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789" style="width: 500px;" autocomplete="off">
+</center>
+
+<br>
+<span id="presetButtons">
+presets:<br>
+<button onClick="changePossible('~`! @#$%^&*()_-+={[}]|\:;&quot;#39;<,>.?/ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');">lower and capital alphabet, 0-9, symbols</button> <br>
+<button onClick="changePossible('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789');">lower and capital alphabet, 0-9</button> <br>
+<button onClick="changePossible('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz');">lower and capital alphabet</button> <br>
+<button onClick="changePossible('ABCDEFGHIJKLMNOPQRSTUVWXYZ');">capital alphabet</button> <br>
+<button onClick="changePossible('abcdefghijklmnopqrstuvwxyz');">lower alphabet</button> <br>
+</span>
+</div>
+
+<script>
+var amount = document.getElementById("digits").value;
+var digits = 0;
+  
+function makeid(length) {
+    var result = [];
+    var characters = document.getElementById("possible").value;
+    var charactersLength = characters.length;
+    for ( var i = 0; i < length; i++ ) {
+      result.push(characters.charAt(Math.floor(Math.random() * 
+ charactersLength)));
+   }
+   return result.join('');
+}
+
+
+
+function copy() {
+  document.getElementById("password").value = (makeid(document.getElementById("digits").value));
+  document.getElementById("password").select();
+  document.getElementById("password").setSelectionRange(0, 99999)
+  document.execCommand("copy");
+}
+
+function changePossible(characters) {
+  document.getElementById("possible").value = characters;
+}
+
+document.getElementById("password").value = makeid(amount);
+</script>
+</body>
+</html>
